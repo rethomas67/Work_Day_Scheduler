@@ -12,7 +12,9 @@ $(function () {
   //
 
   $(".saveBtn").on("click", function (event) {
-    alert($(this).parent().attr("id"));
+    event.preventDefault();
+    var saveDetailId = $(this).parent().attr("id");
+    alert($(this).siblings(".description").val());
   });
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
