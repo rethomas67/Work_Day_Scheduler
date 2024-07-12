@@ -14,4 +14,4 @@ The current day is displayed at the top of the calendar. Timeblocks are displaye
 ![alt text](image.png)
 
 GitHub Repository: https://github.com/rethomas67/Work_Day_Scheduler
-GitHub page link: https://rethomas67.github.io/Coding_Quiz_Challenge/
+GitHub page link: https://rethomas67.github.io/Work_Day_Scheduler/
