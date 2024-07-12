@@ -10,11 +10,17 @@ $(function () {
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
   //
+  var timeSlots = [];
 
+  //retrieve the hour and description from the DOM, add it to the timeslots array, and store it in local storage
   $(".saveBtn").on("click", function (event) {
     event.preventDefault();
-    var saveDetailId = $(this).parent().attr("id");
-    alert($(this).siblings(".description").val());
+    var hourId = $(this).parent().attr("id");
+    var description = $(this).siblings(".description").val();
+
+    timeSlots.push({ hourId: hourId, description: description });
+
+    localStorage.setItem("timeSlots", JSON.stringify(timeSlots));
   });
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
@@ -22,10 +28,10 @@ $(function () {
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
   //
-  var currentHour = dayjs().hour(18).hour();
+  var currentHour = dayjs().hour();
 
   var hour = "hour-";
-
+  //color code the scheduler based on whether the time is past, current, or in the future
   for (i = 17; i > 8; i--) {
     var hourId = "#" + hour + i;
 
@@ -42,6 +48,18 @@ $(function () {
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
+  schedulerItems = JSON.parse(localStorage.getItem("timeSlots"));
+  localStorage.setItem("timeSlots", JSON.stringify(schedulerItems));
+  //add messages from local storage to the correct time slot
+  if (schedulerItems) {
+    schedulerItems.forEach((item) => {
+      timeSlots.push({ hourId: item.hourId, description: item.description });
+      $("#" + item.hourId)
+        .children(".description")
+        .val(item.description);
+    });
+  }
+
   // TODO: Add code to display the current date in the header of the page.
   var currentDate = dayjs().format("dddd, MMMM DD");
   $("#currentDay").text(currentDate);
